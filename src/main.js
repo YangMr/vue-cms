@@ -5,7 +5,8 @@ import App from './App.vue'
 import router from './router'
 import store from './store'
 
-import './styles/reset.css'
+import './styles/reset.scss'
+import './styles/common.scss'
 
 Vue.use(ElementUI)
 Vue.config.productionTip = false

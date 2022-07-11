@@ -23,7 +23,7 @@ const getCaptcha = () => {
  */
 const login = (data) => {
   return request({
-    url: '/api/login?username=' + data.username + '&password=' + data.password + '&code=' + data.code + '&token=' + data.token,
+    url: '/login?username=' + data.username + '&password=' + data.password + '&code=' + data.code + '&token=' + data.token,
     method: 'POST',
     data
   })
