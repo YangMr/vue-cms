@@ -3,7 +3,7 @@
  * @date 2022/7/11 14:13
  */
 import UserApi from '@/api/user'
-import { setItem, getItem } from '@/utils/storage'
+import { setItem, getItem, removeItem } from '@/utils/storage'
 
 export default {
   namespaced: true,
@@ -48,6 +48,15 @@ export default {
       } else {
         return false
       }
+    },
+    async logout({ commit }) {
+      await UserApi.logout()
+      commit('setToken', '')
+      commit('setUserInfo', '')
+      commit('setPermission', '')
+      commit('setMenus', '')
+      removeItem('token')
+      return true
     }
   }
 }

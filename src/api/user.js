@@ -52,11 +52,23 @@ const getPermissionList = () => {
 }
 
 /**
+ * 退出登录接口
+ * @returns {AxiosPromise}
+ */
+const logout = () => {
+  return request({
+    url: '/logout',
+    method: 'POST'
+  })
+}
+
+/**
  * 导出api接口
  */
 export default {
   getCaptcha,
   login,
   getUserInfo,
-  getPermissionList
+  getPermissionList,
+  logout
 }

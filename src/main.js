@@ -10,6 +10,9 @@ import './styles/common.scss'
 
 import './permission'
 
+import Fragment from 'vue-fragment'
+Vue.use(Fragment.Plugin)
+
 Vue.use(ElementUI)
 Vue.config.productionTip = false
 

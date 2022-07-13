@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <fragment>
     <el-menu-item v-if="!item.children || (item.children && item.children.length <= 0)" :index="item.path === '/' ? '/index' : item.path">
       <i :class="'el-icon-'+item.icon"></i>
       <span slot="title">{{item.title}}</span>
@@ -11,7 +11,7 @@
       </template>
       <MenuTree v-for="(childItem, index) in item.children" :key="index" :item="childItem"></MenuTree>
     </el-submenu>
-  </div>
+  </fragment>
 </template>
 
 <script>

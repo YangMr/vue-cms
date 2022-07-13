@@ -1,6 +1,6 @@
 <template>
   <el-container>
-    <el-aside width="200px">
+    <el-aside width="auto">
       <AppAside></AppAside>
     </el-aside>
     <el-container>
@@ -39,6 +39,7 @@ export default {
 }
 
 .el-aside {
+
   background-color: $aside-bg-color;
   color: #333;
 }
