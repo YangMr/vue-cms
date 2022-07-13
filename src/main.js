@@ -8,6 +8,8 @@ import store from './store'
 import './styles/reset.scss'
 import './styles/common.scss'
 
+import './permission'
+
 Vue.use(ElementUI)
 Vue.config.productionTip = false
 

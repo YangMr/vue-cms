@@ -6,6 +6,9 @@
 // 导入axios
 import axios from 'axios'
 
+// 导入store
+import store from '@/store'
+
 // 导入message消息提示组件
 import { Message } from 'element-ui'
 
@@ -20,6 +23,11 @@ const service = axios.create({
 
 // 请求拦截器
 service.interceptors.request.use((config) => {
+  const token = store.getters.token
+  if (token) {
+    config.headers.token = token
+  }
+
   return config
 }, (error) => {
   return Promise.reject(error)

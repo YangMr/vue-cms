@@ -1,45 +1,46 @@
 <template>
   <div class="aside-container">
     <el-menu
-      default-active="0"
+      :default-active="activePath"
       text-color="#fff"
-      active-text-color="#ffd04b">
-      <el-menu-item index="0">
-        <i class="el-icon-setting"></i>
-        <span slot="title">控制台</span>
-      </el-menu-item>
-
-      <el-submenu index="1">
-        <template slot="title">
-          <i class="el-icon-location"></i>
-          <span>系统管理</span>
-        </template>
-        <el-menu-item index="2">
-          <i class="el-icon-setting"></i>
-          <span slot="title">用户管理</span>
-        </el-menu-item>
-        <el-menu-item index="3">
-          <i class="el-icon-setting"></i>
-          <span slot="title">角色管理</span>
-        </el-menu-item>
-        <el-menu-item index="4">
-          <i class="el-icon-setting"></i>
-          <span slot="title">菜单管理</span>
-        </el-menu-item>
-      </el-submenu>
-
+      background-color="#222d32"
+      active-text-color="#ffd04b"
+      router
+    >
+      <MenuTree v-for="(item, index) in menus" :key="index" :item="item"></MenuTree>
     </el-menu>
   </div>
 </template>
 
 <script>
+import MenuTree from '@/layout/AppAside/MenuTree'
+import { filterMenus } from '@/utils/menus'
+
 export default {
-  name: 'index'
+  name: 'index',
+  data() {
+    return {
+    }
+  },
+  computed: {
+    activePath() {
+      return this.$route.path
+    },
+    menus() {
+      return filterMenus(this.$store.getters.menus)
+    }
+  },
+  components: {
+    MenuTree
+  },
+  created () {
+    console.log('create', this.menus)
+  }
 }
 </script>
 
 <style lang="scss" scoped>
 .el-menu{
-  background-color: $aside-bg-color;
+  border-right : none;
 }
 </style>

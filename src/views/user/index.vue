@@ -1,7 +1,5 @@
 <template>
-  <div class="main-container">
-    <router-view></router-view>
-  </div>
+  <div>用户管理</div>
 </template>
 
 <script>
