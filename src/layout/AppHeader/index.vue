@@ -12,7 +12,7 @@
           <i class="el-icon-rank hand white" style="font-size:25px;"></i>
         </el-tooltip>
         <el-tooltip  effect="dark" content="关闭全部标签" placement="bottom">
-          <i class="el-icon-circle-close hand white" style="font-size:25px;"></i>
+          <i @click="handleRemoveAllTags" class="el-icon-circle-close hand white" style="font-size:25px;"></i>
         </el-tooltip>
       </div>
       <!-- 头像 -->
@@ -61,6 +61,10 @@ export default {
           this.handleLogout()
           break
       }
+    },
+    handleRemoveAllTags() {
+      this.$store.dispatch('tags/removeAllTag')
+      this.$router.push('/index')
     }
   }
 }
