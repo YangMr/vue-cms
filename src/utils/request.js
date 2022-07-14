@@ -9,11 +9,14 @@ import axios from 'axios'
 // 导入store
 import store from '@/store'
 
+// import router from '@/router'
+
 // 导入message消息提示组件
 import { Message } from 'element-ui'
 
 // 导入自定义消息提示
 import exceptionMessage from './exception-message'
+// import { removeItem } from '@/utils/storage'
 
 // 创建axios实例对象
 const service = axios.create({
@@ -40,7 +43,10 @@ service.interceptors.response.use((response) => {
   }
   _showErrorMessage(response.data.code, response.data.msg)
 }, (error) => {
-  console.log('2')
+  // const msg = error.response.data.msg
+  // const code = error.response.data.code
+  // const status = error.response.status
+  // console.log(status)
   return Promise.reject(error)
 })
 

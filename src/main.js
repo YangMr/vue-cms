@@ -16,6 +16,12 @@ Vue.use(Fragment.Plugin)
 Vue.use(ElementUI)
 Vue.config.productionTip = false
 
+/**
+ * 动态添加路由没讲
+ * 角色管理
+ * 菜单管理
+ */
+
 new Vue({
   router,
   store,
