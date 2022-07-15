@@ -40,7 +40,7 @@
       <el-table-column label="操作" width="250px">
         <template v-slot="scope">
           <el-button size="mini" plain @click="handleOpenDialog(scope.row.id)">编辑</el-button>
-          <el-button size="mini" type="warning"  plain>分配权限</el-button>
+          <el-button size="mini" type="warning" @click="handlePermissionOpenDialog(scope.row)"  plain>分配权限</el-button>
           <el-button size="mini" type="danger" plain :disabled="scope.row.code === 'admin'">删除</el-button>
         </template>
       </el-table-column>
@@ -80,15 +80,37 @@
         <el-button type="warning" @click="handleVerifyDialogForm">确 定</el-button>
       </div>
     </el-dialog>
+
+    <el-dialog center :title="permissionDialogTitle" :visible.sync="permissionDialogFormVisible">
+      <el-form :model="permissionForm">
+        <el-tree
+          ref="tree"
+          :data="menuList"
+          show-checkbox
+          node-key="id"
+          default-expand-all
+          check-strictly
+          :props="{label : 'label', children : 'children'}">
+        </el-tree>
+      </el-form>
+      <div slot="footer" class="dialog-footer">
+        <el-button @click="permissionDialogFormVisible = false">取 消</el-button>
+        <el-button type="primary" @click="handleSubmitPermission">确 定</el-button>
+      </div>
+    </el-dialog>
   </div>
 </template>
 
 <script>
 import RoleManagerApi from '@/api/role-manager'
+import MenuManagerApi from '@/api/menu-manager'
 export default {
   name: 'index.vue',
   data() {
     return {
+      permissionForm: {},
+      permissionDialogFormVisible: false,
+      permissionDialogTitle: '',
       roleId: '',
       RoleDialogForm: {
         name: '',
@@ -112,13 +134,25 @@ export default {
       queryForm: {
         name: ''
       },
-      roleList: []
+      roleList: [],
+      menuList: [],
+      menuIds: [],
+      permissionId: ''
     }
   },
   created () {
     this.handleGetRoleList()
+    this.handleGetMenuList()
   },
   methods: {
+    async handleGetMenuList() {
+      try {
+        const response = await MenuManagerApi.getMenuList()
+        this.menuList = response
+      } catch (e) {
+        console.log(e)
+      }
+    },
     async handleGetRoleList () {
       try {
         const data = { current: this.current, size: this.size, name: this.queryForm.name }
@@ -152,7 +186,12 @@ export default {
     },
     async handleFindRole(id) {
       const response = await RoleManagerApi.findRole(id)
-      if (response) this.RoleDialogForm = response
+      if (response) {
+        this.RoleDialogForm = response
+        this.menuIds = response.menuIds
+        console.log(this.menuIds)
+        this.$refs.tree.setCheckedKeys(this.menuIds)
+      }
     },
     handleVerifyDialogForm() {
       this.$refs.dialogForm.validate(async (valid) => {
@@ -188,6 +227,19 @@ export default {
     handleResetDialogForm() {
       this.$refs.dialogForm.resetFields()
       this.dialogFormVisible = false
+    },
+    handlePermissionOpenDialog(row) {
+      this.permissionDialogTitle = `给"${row.name}"分配权限`
+      this.permissionDialogFormVisible = true
+      this.handleFindRole(row.id)
+      this.permissionId = row.id
+    },
+    async handleSubmitPermission() {
+      const keys = this.$refs.tree.getCheckedKeys()
+      const response = await RoleManagerApi.assignPermissions(this.permissionId, keys)
+      console.log(response)
+      this.permissionDialogFormVisible = false
+      this.handleGetRoleList()
     }
   }
 }

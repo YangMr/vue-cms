@@ -71,10 +71,19 @@ const updateRoleInfo = (data) => {
   })
 }
 
+const assignPermissions = (id, data) => {
+  return request({
+    url: `/role/perm/${id}`,
+    method: 'POST',
+    data: data
+  })
+}
+
 export default {
   getRoleList,
   updateRole,
   findRole,
   addRole,
-  updateRoleInfo
+  updateRoleInfo,
+  assignPermissions
 }
