@@ -18,7 +18,7 @@ export const filterMenus = (menus) => {
     if (item.children && item.children.length > 0) {
       const data = item.children.filter((child, index) => {
         if (child.children && child.children.length > 0) {
-          if (!child.children[index].name) {
+          if (child.children && child.children[index] && !child.children[index].name) {
             delete child.children[index].children
           }
           return child

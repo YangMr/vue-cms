@@ -10,7 +10,7 @@
         </el-form-item>
       </el-form>
       <div class="add-button">
-        <el-button @click="handleOpenDialog" style="float: right;" type="primary" size="small" icon="el-icon-edit">新增</el-button>
+        <el-button v-permission="'sys:user:add'" @click="handleOpenDialog" style="float: right;" type="primary" size="small" icon="el-icon-edit">新增</el-button>
       </div>
     </div>
 
@@ -47,9 +47,9 @@
       </el-table-column>
       <el-table-column label="操作" width="250px">
         <template v-slot="scope">
-          <el-button size="mini" type="success" @click="handleOpenDialog(scope.row.id)" plain>编辑</el-button>
-          <el-button size="mini" :disabled="scope.row.roles.length === 1 && scope.row.roles[0].code === 'admin'" type="warning" @click="handleOpenRoleDialog(scope.row)" plain>分配角色</el-button>
-          <el-button size="mini" :disabled="scope.row.roles.length === 1 && scope.row.roles[0].code === 'admin'" type="danger" plain>删除</el-button>
+          <el-button size="mini" v-permission="'sys:user:update'" type="success" @click="handleOpenDialog(scope.row.id)" plain>编辑</el-button>
+          <el-button size="mini" v-permission="'sys:user:assign'"  :disabled="scope.row.roles.length === 1 && scope.row.roles[0].code === 'admin'" type="warning" @click="handleOpenRoleDialog(scope.row)" plain>分配角色</el-button>
+          <el-button size="mini"  v-permission="'sys:user:del'"  :disabled="scope.row.roles.length === 1 && scope.row.roles[0].code === 'admin'" type="danger" plain>删除</el-button>
         </template>
       </el-table-column>
     </el-table>

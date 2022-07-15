@@ -14,7 +14,8 @@ const getters = {
   userInfo: state => state.user.userInfo,
   menus: state => state.user.menus,
   isCollapse: state => state.menu.collapse,
-  tags: state => state.tags.tags
+  tags: state => state.tags.tags,
+  permission: state => state.user.permission
 }
 
 export default getters
