@@ -36,11 +36,13 @@ export default {
     handleAddTag() {
       const path = this.$route.path
       const title = this.$route.meta.title
-      const newTag = {
-        path,
-        title
+      if (path && title) {
+        const newTag = {
+          path,
+          title
+        }
+        this.$store.dispatch('tags/addTag', newTag)
       }
-      this.$store.dispatch('tags/addTag', newTag)
     },
     handleRemoveTag(index) {
       if (!index) return

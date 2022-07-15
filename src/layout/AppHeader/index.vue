@@ -32,6 +32,7 @@
 
 <script>
 import AppTags from '@/components/common/Tags.vue'
+// import { resetRouter } from '../../utils/resetRouter'
 export default {
   name: 'index',
   components: { AppTags },
@@ -50,6 +51,8 @@ export default {
           message: '您已成功退出登录'
         })
         this.$router.push('/login')
+        // resetRouter()
+        location.reload()
       }
     },
     handleCommand(command) {

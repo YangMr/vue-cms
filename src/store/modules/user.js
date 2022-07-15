@@ -56,6 +56,7 @@ export default {
       commit('setPermission', '')
       commit('setMenus', '')
       removeItem('token')
+      removeItem('tags')
       return true
     }
   }
